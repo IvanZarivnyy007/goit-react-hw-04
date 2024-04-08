@@ -1,7 +1,9 @@
-const ImageCard = () => {
-    return (<div>
-        <img src="" alt="" />
-      </div>)
-}
+const ImageCard = ({ url, alt, onClick }) => { 
+  return (
+    <div>
+      <img src={url} alt={alt} className="Image-Card" onClick={onClick} />
+    </div>
+  );
+};
 
-export default ImageCard
+export default ImageCard;

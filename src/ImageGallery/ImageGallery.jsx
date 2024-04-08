@@ -1,17 +1,18 @@
-const ImageGallery = () => {
-    return (
-        <div>
-            <ul>
-	{/* Набір елементів списку із зображеннями */}
-	<li>
-		<div>
-		<img src="" alt="" />
-		</div>
-	</li>
-</ul>
+import ImageCard from "../ImageCard/ImageCard";
 
-        </div>
-    )
-}
+const ImageGallery = ({ images }) => {
+  return (
+    <ul className="ul-ImageGallery">
+      {images.map((image) => ( 
+        <li key={image.id}>
+          <ImageCard
+            image={image}
+            onClick={''} 
+          />
+        </li>
+      ))}
+    </ul>
+  );
+};
 
-export default ImageGallery
+export default ImageGallery;
