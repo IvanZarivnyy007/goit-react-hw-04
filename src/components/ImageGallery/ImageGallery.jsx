@@ -1,13 +1,14 @@
 import ImageCard from "../ImageCard/ImageCard";
+import css from "./ImageGallery.module.css";
 
-const ImageGallery = ({ images }) => {
+export const ImageGallery = ({ images, onClick }) => {
   return (
-    <ul className="ul-ImageGallery">
-      {images.map((image) => ( 
+    <ul className={css.list}>
+      {images.map((image) => (
         <li key={image.id}>
           <ImageCard
             image={image}
-            onClick={''} 
+            onClick={() => onClick(image.urls.regular)}
           />
         </li>
       ))}
@@ -16,3 +17,4 @@ const ImageGallery = ({ images }) => {
 };
 
 export default ImageGallery;
+

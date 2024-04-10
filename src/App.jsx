@@ -1,42 +1,77 @@
-import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-import './App.css'
-import SearchBar from './SearchBar/SearchBar'
-import ImageGallery from './ImageGallery/ImageGallery';
-import ImageCard from './ImageCard/ImageCard';
-import Loader from './Loader/Loader.jsx';
-// import ErrorMessage from './ErrorMessage/ErrorMessage';
-import {getImages} from "../Api.js"
-import ImagesModal from './ImageModal/ImageModal.jsx';
+import "./App.css";
+import { useState, useEffect } from "react";
+import { LoadMoreBtn } from "./components/LoadMoreBtn/LoadMoreBtn";
+import  ErrorMessage from "./components/ErrorMessage/ErrorMessage";
+import { SearchBar } from "./components/SearchBar/SearchBar";
+import  ImageGallery  from "./components/ImageGallery/ImageGallery";
+import  Loader  from "./components/Loader/Loader";
+import ImageModal from "./components/ImageModal/ImageModal";
+import  getImages  from "./Api/Api";
+import { Toaster } from "react-hot-toast";
 
-
-
-function App() {
-  // const [error, SetError] = useState(null)
-  const [openMod, SetOpenMod] = useState(null)
-  const [closeMod, SetCloseMod] = useState(null)
-  // const [loading, setLoading] = useState(false);
-  // const [page , SetPage] = useState('')
-  const [images , SetImages] = useState([])
+export default function App() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  
+  const [images, setImages] = useState([]);
+  const [totalResults, setTotalResults] = useState(0);
+  const [query, setQuery] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    if (!query) return;
+    setLoading(true);
+    getImages(query, page)
+      .then(({ results, total_pages }) => {
+        setImages((prev) => [...prev, ...results]);
+        setTotalResults(total_pages);
+      })
+      .catch((error) => setError(error.message))
+      .finally(() => setLoading(false));
+  }, [query, page]);
+
+  function handleSubmit(query) {
+    setImages([]);
+    setPage(1);
+    setError(null);
+    setTotalResults(0);
+    setQuery(query);
+  }
+  function handleLoadMore() {
+    setPage(page + 1);
+  }
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+    setIsModalOpen(false);
+  };
 
   return (
     <>
-    
-      <SearchBar/>
-      <ImageGallery/>
-      <ImageCard/>
-      <Loader/>
-      {/* <ErrorMessage/> */}
+      <SearchBar onSubmit={handleSubmit} />
+      {loading && <Loader />}
+      {error ? (
+        <ErrorMessage />
+      ) : (
+        <ImageGallery images={images} onClick={handleImageClick} />
+      )}
+      {totalResults > 0 && images.length < totalResults && (
+        <LoadMoreBtn onClick={handleLoadMore} />
+      )}
 
-      <ImagesModal
-   images={selectedImage}
-   openMod={openMod}
-   RequestClose={closeModal}
-/>
+      <ImageModal
+        images={selectedImage}
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+      />
 
+      <Toaster />
     </>
-  )
+  );
 }
-
-export default App

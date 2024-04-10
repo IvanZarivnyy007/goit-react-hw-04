@@ -25,14 +25,14 @@ const customStyles = {
   Modal.setAppElement(document.getElementById('root'));
   
 
-  function ImagesModal({ images, openMod, RequestClose }) {
+  function ImagesModal({ images, isOpen, onRequestClose }) {
     return (
         <Modal
-        openMod={openMod}
-        onRequestClose={RequestClose}
-        contentLabel="Image Modal"
-        style={customStyles}
-      >
+        isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      contentLabel="Image Modal"
+      style={customStyles}
+    >
         <img src={images} alt="Image" />
       </Modal>
     );

@@ -9,7 +9,7 @@ axios.defaults.params = {
   per_page: 15,
 };
 
-export const getImages = async (query, page) => {
+ const getImages = async (query, page) => {
   const { data } = await axios.get(
     `/search/photos`,
     {
@@ -19,8 +19,9 @@ export const getImages = async (query, page) => {
       }
     }
   );
-
+  console.log(data);
   return data;
+  
 };
 
-console.log(getImages);
+export default getImages
