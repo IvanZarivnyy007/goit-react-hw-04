@@ -1,0 +1,67 @@
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.header {
+  background: rgb(63, 94, 251);
+  background: radial-gradient(
+    circle,
+    rgba(63, 94, 251, 1) 0%,
+    rgba(252, 70, 107, 1) 100%
+  );
+
+  background-size: 400% 400%;
+  animation: gradientBackground 10s ease infinite;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.input {
+  width: 300px;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+  background: #1a1a1a;
+  /* color: white; */
+}
+
+.input:focus {
+  border-color: #0d0d0d;
+  outline: none;
+}
+
+.button {
+  padding: 10px 20px;
+  background: linear-gradient(45deg, #0d0d0d, #1a1a1a, #262626, #333333);
+  background-size: 400% 400%;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  animation: gradientBackground 10s ease infinite;
+}
+
+.button:hover {
+  background-position: 100% 0%;
+  border-color: #0d0d0d;
+}

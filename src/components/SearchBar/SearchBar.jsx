@@ -1,32 +1,13 @@
 import { Input, Button } from 'antd';
-import getImages from '../../Api/Api.js';
-import { useState } from 'react';
-import ErrorMessage from '../ErrorMessage/ErrorMessage.jsx';
-import { Toaster } from 'react-hot-toast';
+import css from "./SearchBar.module.css"
 
-const SearchBar = ({ onSubmit }) => {
-  const [input, setInput] = useState();
-  const [image, setImage] = useState([]);
-
-  const handleClick = () => {
-    if (input !== '') {
-      getImages(input, 5)
-        .then((data) => {
-          setImage(data);
-        })
-        .catch(() => {
-          <ErrorMessage />;
-        });
-    } else {
-      <ErrorMessage />;
-    }
-  };
-
+const SearchBar = ({ onSubmit ,setInput }) => {
   return (
     <div>
-      <header>
-        <form>
+      <header className={css.header}>
+        <form className={css.form}>
           <Input
+            className={css.input}
             type="text"
             autocomplete="off"
             autofocus
@@ -35,11 +16,10 @@ const SearchBar = ({ onSubmit }) => {
               setInput(e.target.value);
             }}
           />
-          <Button onClick={handleClick} type="submit">
+          <Button className={css.button} onClick={onSubmit} type="submit">
             Search
           </Button>
         </form>
-        <Toaster />
       </header>
     </div>
   );
