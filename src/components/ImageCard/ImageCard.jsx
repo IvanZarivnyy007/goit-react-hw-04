@@ -1,7 +1,7 @@
 import css from "./ImageCard.module.css"
 
 const ImageCard = ({ image, onClick }) => {
-  console.log(image);
+  // console.log(image);
   return (
     <div >
       <img

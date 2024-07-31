@@ -5,6 +5,11 @@ import axios from "axios";
    const baseURL = 'https://api.unsplash.com';
    const endPoint = '/search/photos';
    const url = baseURL + endPoint;
+
+   axios.defaults.params = {
+    orientation: "landscape",
+    per_page: 16,
+  };
  
    const params = {
     query: query,
@@ -16,7 +21,7 @@ import axios from "axios";
    };
  
    const res = await axios.get(url, { headers, params });
-   console.log(res);
+  //  console.log(res);
    return res.data.results
    ;
 }

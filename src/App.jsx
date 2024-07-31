@@ -10,14 +10,18 @@ import SearchBar from './components/SearchBar/SearchBar.jsx'
 // import ImageModal from './components/ImageModal/ImageModal.jsx'
 
 const App = () => {
+
   const [image, setImage] = useState([]);
   const [input, setInput] = useState('');
   const [page, setPage] = useState('');
+  const [loading , setLoading] = useState(false)
+  const [error , setError] = useState(false)
+
+
 
   const handleClick = () => {
     if (input.trim() !== '') {
-      <Loader/>
-      getImages(input, page ) 
+      getImages(input, page )
         .then((data) => {
           setImage(data);
         })
@@ -28,11 +32,13 @@ const App = () => {
       <ErrorMessage />;
     }
   };
-
+  
   return (
     <div>
+      {loading && <Loader />}
       <SearchBar onSubmit ={handleClick} setInput = {setInput}/>
       <ImageGallery images = {image} />
+      
       <Toaster />
     </div>
   );
