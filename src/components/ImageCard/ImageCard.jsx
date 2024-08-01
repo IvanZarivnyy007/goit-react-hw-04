@@ -9,7 +9,9 @@ const ImageCard = ({ image, onClick }) => {
         }
         alt={image.alt_description}
         className={css.image}
-        onClick={onClick}
+        onClick={()=>{
+          onClick(image.urls.regular)
+        }}
       />
     </div>
   );

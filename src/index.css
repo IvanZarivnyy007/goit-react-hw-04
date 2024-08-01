@@ -69,15 +69,43 @@ button:focus-visible {
   }
 }
 
-
 .header {
   background-color: steelblue;
   height: 60px;
   width: auto;
-  
+
   height: 60px;
 }
 
 .input {
   width: 300px;
+}
+
+.loader {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.image-modal {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.modal-style {
+  height: 90vh;
+  width: fit-content;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
 }

@@ -1,17 +1,5 @@
-import { useState } from 'react';
-
-const ImageModal = ({}) => {
-  let subtitle;
-  const [openModal, setOpenModal] = useState(false);
-
-  const modalisOpen = () => {
-    setOpenModal(true);
-    subtitle.style.color = '#f00';
-  };
-  const modalisClose = () => {
-    setOpenModal(false);
-  };
-  return <div></div>;
+const ImageModal = ({ url }) => {
+  return <img className="image-modal" src={url} />;
 };
 
 export default ImageModal;
