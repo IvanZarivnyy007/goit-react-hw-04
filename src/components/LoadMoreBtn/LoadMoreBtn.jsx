@@ -1,9 +1,9 @@
-import { Button } from 'antd';
+import css from "./LoadMoreBtn.module.css"
 
 const LoadMore = ({onClickLoadMore}) => {
   return (
     <div>
-      <Button onClick={onClickLoadMore}>LoadMore</Button>
+      <button className={css.buttonMore} onClick={onClickLoadMore}>LoadMore</button>
     </div>
   )
 };
