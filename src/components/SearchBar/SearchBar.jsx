@@ -9,8 +9,6 @@ const SearchBar = ({ onSubmit ,setInput }) => {
           <Input
             className={css.input}
             type="text"
-            autocomplete="off"
-            autofocus
             placeholder="Search images and photos"
             onChange={(e) => {
               setInput(e.target.value);
