@@ -1,7 +1,5 @@
 .buttonMore {
-    display: flex;
-    align-content: center;
-    justify-content: center;
+
     padding: 10px 20px;
     background: linear-gradient(45deg, #0d0d0d, #1a1a1a, #262626, #333333);
     background-size: 400% 400%;
@@ -12,10 +10,19 @@
     cursor: pointer;
     transition: all 0.3s;
     animation: gradientBackground 10s ease infinite;
-    margin-left: 650px
+   
   }
 
 .button:hover {
   background-position: 100% 0%;
   border-color: #0d0d0d;
+}
+
+.buttonContainer {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  width: 98vw;
+  padding: 0;
+  margin: 0; 
 }
