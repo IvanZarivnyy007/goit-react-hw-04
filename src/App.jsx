@@ -26,6 +26,7 @@ const App = () => {
   const [hidenLoad, setHiddenLoad] = useState(false);
 
   const handleSubmit = () => {
+    setPage(1);
     setLoading(true);
     setError(null);
     if (input.trim() !== '') {
@@ -52,7 +53,9 @@ const App = () => {
     if (input.trim() !== '') {
       getImages(input, page)
         .then((data) => {
-          setImage((prevImages) => [...prevImages, ...data]);
+          setImage((prevImages) =>
+            page === 1 ? data : [...prevImages, ...data]
+          );
           setLoading(false);
         })
         .catch((err) => {
