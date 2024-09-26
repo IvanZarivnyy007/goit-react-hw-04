@@ -17,6 +17,7 @@ Modal.setAppElement('#root');
 const App = () => {
   const [image, setImage] = useState([]);
   const [input, setInput] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -24,12 +25,13 @@ const App = () => {
   const [regularUrl, setRegularUrl] = useState('');
   const [hidenLoad, setHiddenLoad] = useState(false);
 
-  const handleClick = () => {
+  const handleSubmit = () => {
     setLoading(true);
     setError(null);
     if (input.trim() !== '') {
       getImages(input, page)
         .then((data) => {
+          setSearchQuery(input);
           setImage(data);
           setLoading(false);
           setHiddenLoad(true);
@@ -60,10 +62,10 @@ const App = () => {
     } else {
       setLoading(false);
     }
-  }, [page]);
+  }, [searchQuery, page]);
 
   const handleLoadMore = () => {
-    setPage(page + 1);
+    setPage((prevPage) => prevPage + 1);
   };
 
   const onOpenModal = (x) => {
@@ -73,7 +75,7 @@ const App = () => {
 
   return (
     <div>
-      <SearchBar onSubmit={handleClick} setInput={setInput} />
+      <SearchBar onSubmit={handleSubmit} setInput={setInput} />
       {loading && <Loader status={true} />}
       {error && <ErrorMessage message={error} />}
       {!error && <ImageGallery images={image} onClick={onOpenModal} />}
