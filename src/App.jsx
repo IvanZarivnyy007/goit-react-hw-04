@@ -15,7 +15,7 @@ import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn.jsx';
 Modal.setAppElement('#root');
 
 const App = () => {
-  const [image, setImage] = useState([]);
+  const [image, setImages] = useState([]);
   const [input, setInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [page, setPage] = useState(1);
@@ -23,48 +23,36 @@ const App = () => {
   const [error, setError] = useState(false);
   const [modalState, openModal, closeModal] = useModal();
   const [regularUrl, setRegularUrl] = useState('');
-  const [hidenLoad, setHiddenLoad] = useState(false);
+  const [hidenLoad, setShowLoadMore] = useState(false);
 
   const handleSubmit = () => {
-    setPage(1);
-    setLoading(true);
-    setError(null);
-    if (input.trim() !== '') {
-      getImages(input, page)
-        .then((data) => {
-          setSearchQuery(input);
-          setImage(data);
-          setLoading(false);
-          setHiddenLoad(true);
-        })
-        .catch((err) => {
-          setError(err.message);
-          setLoading(false);
-        });
-    } else {
+    if (input.trim() == '') {
       toast.error("This didn't work.");
-      setLoading(false);
+      return;
     }
+    setSearchQuery(input);
+    setPage(1);
+    setImages([]);
+    setShowLoadMore(false);
   };
 
   useEffect(() => {
+    if (!searchQuery) return;
     setLoading(true);
     setError(null);
-    if (input.trim() !== '') {
-      getImages(input, page)
-        .then((data) => {
-          setImage((prevImages) =>
-            page === 1 ? data : [...prevImages, ...data]
-          );
-          setLoading(false);
-        })
-        .catch((err) => {
-          setError(err.message);
-          setLoading(false);
-        });
-    } else {
-      setLoading(false);
-    }
+
+    getImages(searchQuery, page)
+      .then((data) => {
+        setImages((prevImages) =>
+          page === 1 ? data : [...prevImages, ...data]
+        );
+        setShowLoadMore(data.length > 0);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
   }, [searchQuery, page]);
 
   const handleLoadMore = () => {
